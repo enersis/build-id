@@ -1,0 +1,17 @@
+name: 'Build id generator Action for GitHub Actions'
+description: 'Automatically generates unique build id in the <branch>-<hash>-<timestamp> format to support auto image workflows'
+branding:
+  icon: 'cloud'
+  color: 'pink'
+outputs:
+  id:
+    description: 'The generated build id.'
+    value: ${{ steps.generate.outputs.BUILD_ID }}
+runs:
+- name: Generate build id
+  id: generate
+  run: |
+      branch=${GITHUB_REF##*/}
+      sha=${GITHUB_SHA::8}
+      ts=$(date +%s)
+      echo "::set-output name=BUILD_ID::${branch}-${sha}-${ts}"
