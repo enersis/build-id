@@ -8,6 +8,7 @@ outputs:
     description: 'The generated build id.'
     value: ${{ steps.generate.outputs.BUILD_ID }}
 runs:
+  using: "composite"
   steps:
     - name: Generate build id
       id: generate
