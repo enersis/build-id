@@ -8,10 +8,12 @@ outputs:
     description: 'The generated build id.'
     value: ${{ steps.generate.outputs.BUILD_ID }}
 runs:
-- name: Generate build id
-  id: generate
-  run: |
-      branch=${GITHUB_REF##*/}
-      sha=${GITHUB_SHA::8}
-      ts=$(date +%s)
-      echo "::set-output name=BUILD_ID::${branch}-${sha}-${ts}"
+  steps:
+    - name: Generate build id
+      id: generate
+      run: |
+          branch=${GITHUB_REF##*/}
+          sha=${GITHUB_SHA::8}
+          ts=$(date +%s)
+          echo "::set-output name=BUILD_ID::${branch}-${sha}-${ts}"
+      shell: bash
