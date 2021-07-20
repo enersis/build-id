@@ -14,6 +14,7 @@ runs:
       id: generate
       run: |
           branch=${GITHUB_REF##*/}
+          branch=$(echo "$branch" | tr '[:upper:]' '[:lower:]')
           sha=${GITHUB_SHA::8}
           ts=$(date +%s)
           echo "::set-output name=BUILD_ID::${branch}-${sha}-${ts}"
